@@ -39,5 +39,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Realtime Chat App uses camera to capture profile picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Realtime Chat App uses photo library to capture profile picture</string>
 </dict>
 </plist>

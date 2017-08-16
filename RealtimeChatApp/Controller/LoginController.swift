@@ -23,7 +23,7 @@ class LoginController: UIViewController {
         return view
     }()
     
-    let loginRegisterButton: UIButton = {
+    lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
         button.setTitle("Register", for: .normal)
@@ -130,15 +130,20 @@ class LoginController: UIViewController {
         return tf
     }()
     
-    let profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "j2team")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView))
+        imageView.addGestureRecognizer(tapRecognizer)
+        imageView.isUserInteractionEnabled = true
+        
         return imageView
     }()
     
-    let loginRegisterSegmentedControl: UISegmentedControl = {
+    lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Login", "Register"])
         sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = .white
