@@ -19,6 +19,7 @@
 		FA257EA71F420E17002B7DB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA257EA51F420E17002B7DB2 /* LaunchScreen.storyboard */; };
 		FA257EB01F420FEE002B7DB2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA257EAF1F420FEE002B7DB2 /* LoginController.swift */; };
 		FA31D4431F448B3C008542E4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA31D4421F448B3C008542E4 /* Extensions.swift */; };
+		FA31D4451F44A241008542E4 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA31D4441F44A241008542E4 /* ChatLogController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		FA257EA81F420E17002B7DB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA257EAF1F420FEE002B7DB2 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controller/LoginController.swift; sourceTree = "<group>"; };
 		FA31D4421F448B3C008542E4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FA31D4441F44A241008542E4 /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatLogController.swift; path = Controller/ChatLogController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				FA257E9E1F420E17002B7DB2 /* MessagesController.swift */,
 				DB9017B71F43D97A00F14A49 /* NewMessagesController.swift */,
 				DB9017BC1F43E9BB00F14A49 /* LoginController+handlers.swift */,
+				FA31D4441F44A241008542E4 /* ChatLogController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA31D4451F44A241008542E4 /* ChatLogController.swift in Sources */,
 				DB9017B81F43D97A00F14A49 /* NewMessagesController.swift in Sources */,
 				FA257E9F1F420E17002B7DB2 /* MessagesController.swift in Sources */,
 				DB9017BD1F43E9BB00F14A49 /* LoginController+handlers.swift in Sources */,
