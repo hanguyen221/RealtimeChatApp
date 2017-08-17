@@ -33,6 +33,7 @@ class NewMessagesController: UITableViewController {
                 // if we use this method, our apps will crash if object properties don't match up with Firebase dictionary.
                 user.setValuesForKeys(dictionary)
                 self.users.append(user)
+                user.id = snapshot.key
                 
                 // this will crash because of background thread, let fix by dispatch syn
                 
@@ -84,8 +85,17 @@ class NewMessagesController: UITableViewController {
         return cell
     }
     
+    var messagesController: MessagesController?
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismiss(animated: true) {
+            let user = self.users[indexPath.row]
+            self.messagesController?.showChatControllerForUser(user: user)
+        }
     }
 }
 

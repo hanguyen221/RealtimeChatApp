@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB88A0CF1F453C450021CA70 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB88A0CE1F453C450021CA70 /* Message.swift */; };
 		DB9017B81F43D97A00F14A49 /* NewMessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9017B71F43D97A00F14A49 /* NewMessagesController.swift */; };
 		DB9017BB1F43DD1300F14A49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9017BA1F43DD1300F14A49 /* User.swift */; };
 		DB9017BD1F43E9BB00F14A49 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9017BC1F43E9BB00F14A49 /* LoginController+handlers.swift */; };
@@ -26,6 +27,7 @@
 		5471B231FDD16B9F12B29AC8 /* Pods-RealtimeChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealtimeChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealtimeChatApp/Pods-RealtimeChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		863AD57C1177A438DB108A12 /* Pods_RealtimeChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealtimeChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B331600D87C42C1296CC990B /* Pods-RealtimeChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealtimeChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealtimeChatApp/Pods-RealtimeChatApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DB88A0CE1F453C450021CA70 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Model/Message.swift; sourceTree = "<group>"; };
 		DB9017B71F43D97A00F14A49 /* NewMessagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewMessagesController.swift; path = Controller/NewMessagesController.swift; sourceTree = "<group>"; };
 		DB9017BA1F43DD1300F14A49 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
 		DB9017BC1F43E9BB00F14A49 /* LoginController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LoginController+handlers.swift"; path = "Controller/LoginController+handlers.swift"; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9017BA1F43DD1300F14A49 /* User.swift */,
+				DB88A0CE1F453C450021CA70 /* Message.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				FA31D4451F44A241008542E4 /* ChatLogController.swift in Sources */,
 				DB9017B81F43D97A00F14A49 /* NewMessagesController.swift in Sources */,
 				FA257E9F1F420E17002B7DB2 /* MessagesController.swift in Sources */,
+				DB88A0CF1F453C450021CA70 /* Message.swift in Sources */,
 				DB9017BD1F43E9BB00F14A49 /* LoginController+handlers.swift in Sources */,
 				FA257EB01F420FEE002B7DB2 /* LoginController.swift in Sources */,
 				DB9017BB1F43DD1300F14A49 /* User.swift in Sources */,
