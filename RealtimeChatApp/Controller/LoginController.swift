@@ -11,7 +11,7 @@
 import UIKit
 import Firebase
 
-class LoginController: UIViewController {
+class LoginController: UIViewController, UITextFieldDelegate {
 
     var messagesController: MessagesController?
     
@@ -163,6 +163,17 @@ class LoginController: UIViewController {
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
         
+        let dismissKeyboardRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(dismissKeyboardRecognizer)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func setupLoginRegisterSegmentedControl() {

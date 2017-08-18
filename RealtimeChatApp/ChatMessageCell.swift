@@ -20,23 +20,54 @@ class ChatMessageCell: UICollectionViewCell {
         return tv
     }()
     
+    static let blueColor = UIColor(r: 0, g: 137, b: 249)
+    
     let bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(r: 0, g: 137, b: 249)
+        view.backgroundColor = blueColor
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 16
+        view.layer.masksToBounds = true
         return view
     }()
+    
+    let profileImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "j2team")
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
+        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
+    var bubbleWidthAnchor: NSLayoutConstraint?
+    var bubbleRightAnchor: NSLayoutConstraint?
+    var bubbleLeftAnchor: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(bubbleView)
         addSubview(textView)
+        addSubview(profileImageView)
         
+        //x, y, w, h
         
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        
+        bubbleRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor)
+        bubbleRightAnchor?.isActive = true
+        
+        bubbleLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
+        bubbleLeftAnchor?.isActive = false
+        
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        bubbleView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
+        bubbleWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         // x, y, w, h
@@ -52,3 +83,15 @@ class ChatMessageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

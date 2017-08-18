@@ -66,10 +66,19 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         super.viewDidLoad()
         
         collectionView?.backgroundColor = .white
+        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.alwaysBounceVertical = true
         
         setupInputComponents()
+        
+        let dismissKeyboardRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(dismissKeyboardRecognizer)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,7 +91,36 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let message = messages[indexPath.item]
         cell.textView.text = message.text
         
+        setupCell(cell: cell, message: message)
+        
+        //lets modify the cell's width
+        cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: message.text!).width + 32
         return cell
+    }
+    
+    private func setupCell(cell: ChatMessageCell, message: Message) {
+        
+        if let profileImageUrl = self.user?.profileImageUrl {
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
+        }
+        
+        if message.fromId == Auth.auth().currentUser?.uid {
+            //blue
+            cell.bubbleView.backgroundColor = ChatMessageCell.blueColor
+            cell.textView.textColor = .white
+            cell.profileImageView.isHidden = true
+            
+            cell.bubbleLeftAnchor?.isActive = false
+            cell.bubbleRightAnchor?.isActive = true
+        } else {
+            //gray
+            cell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            cell.textView.textColor = .black
+            
+            cell.bubbleRightAnchor?.isActive = false
+            cell.bubbleLeftAnchor?.isActive = true
+            cell.profileImageView.isHidden = false
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -94,6 +132,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }
         
         return CGSize(width: view.frame.width, height: height)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
     
     private func estimateFrameForText(text: String) -> CGRect {
@@ -170,6 +212,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 return
             }
             
+            self.inputTextField.text = nil
+            
             let userMessagesRef = Database.database().reference().child("user-messages").child(fromId)
             let messageId = childRef.key
             userMessagesRef.updateChildValues([messageId: 1])
@@ -182,6 +226,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
+        textField.resignFirstResponder()
         return true
     }
 }

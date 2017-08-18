@@ -24,8 +24,6 @@ class MessagesController: UITableViewController {
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         
-//        observeMessages()
-        
         observeUserMessages()
     }
     
@@ -48,8 +46,8 @@ class MessagesController: UITableViewController {
                     let message = Message()
                     message.setValuesForKeys(dictionary)
                     
-                    if let toId = message.toId {
-                        self.messagesDictionary[toId] = message
+                    if let chatPartnerId = message.chatPartnerId() {
+                        self.messagesDictionary[chatPartnerId] = message
                         
                         self.messages = Array(self.messagesDictionary.values)
                         self.messages.sort {
@@ -57,44 +55,30 @@ class MessagesController: UITableViewController {
                         }
                     }
                     
-                    // this will crash cos of background thread so let's put it to main thread
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    self.timer?.invalidate()
+                    print("just cancel timer")
+                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+                    print("schedule timer")
+                    
                 }
             }, withCancel: nil)
             
         }, withCancel: nil)
     }
     
+    var timer: Timer?
+    
+    func handleReloadTable() {
+        // this will crash cos of background thread so let's put it to main thread
+        DispatchQueue.main.async {
+            print("reload table")
+            self.tableView.reloadData()
+        }
+    }
+    
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
-    
-    func observeMessages() {
-        let ref = Database.database().reference().child("messages")
-        ref.observe(.childAdded, with: { (snapshot) in
-            
-            if let dictionary = snapshot.value as? [String: Any] {
-                let message = Message()
-                message.setValuesForKeys(dictionary)
-                
-                if let toId = message.toId {
-                    self.messagesDictionary[toId] = message
-                    
-                    self.messages = Array(self.messagesDictionary.values)
-                    self.messages.sort {
-                        ($0.timestamp?.intValue)! > ($1.timestamp?.intValue)!
-                    }
-                }
-  
-                // this will crash cos of background thread so let's put it to main thread
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
 
-        }, withCancel: nil)
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
