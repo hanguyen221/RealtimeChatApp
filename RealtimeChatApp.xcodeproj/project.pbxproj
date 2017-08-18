@@ -21,6 +21,7 @@
 		FA257EB01F420FEE002B7DB2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA257EAF1F420FEE002B7DB2 /* LoginController.swift */; };
 		FA31D4431F448B3C008542E4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA31D4421F448B3C008542E4 /* Extensions.swift */; };
 		FA31D4451F44A241008542E4 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA31D4441F44A241008542E4 /* ChatLogController.swift */; };
+		FA33D7651F466484002C0542 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA33D7641F466484002C0542 /* ChatMessageCell.swift */; };
 		FA5C53801F45E408005A35F8 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C537F1F45E408005A35F8 /* UserCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		FA257EAF1F420FEE002B7DB2 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controller/LoginController.swift; sourceTree = "<group>"; };
 		FA31D4421F448B3C008542E4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FA31D4441F44A241008542E4 /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatLogController.swift; path = Controller/ChatLogController.swift; sourceTree = "<group>"; };
+		FA33D7641F466484002C0542 /* ChatMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		FA5C537F1F45E408005A35F8 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = View/UserCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				FA5C537F1F45E408005A35F8 /* UserCell.swift */,
+				FA33D7641F466484002C0542 /* ChatMessageCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				DB9017BD1F43E9BB00F14A49 /* LoginController+handlers.swift in Sources */,
 				FA257EB01F420FEE002B7DB2 /* LoginController.swift in Sources */,
 				DB9017BB1F43DD1300F14A49 /* User.swift in Sources */,
+				FA33D7651F466484002C0542 /* ChatMessageCell.swift in Sources */,
 				FA257E9D1F420E17002B7DB2 /* AppDelegate.swift in Sources */,
 				FA5C53801F45E408005A35F8 /* UserCell.swift in Sources */,
 				FA31D4431F448B3C008542E4 /* Extensions.swift in Sources */,
