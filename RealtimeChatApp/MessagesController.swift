@@ -12,7 +12,7 @@ import Firebase
 class MessagesController: UITableViewController {
     
     let cellId = "cellId"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,48 +37,57 @@ class MessagesController: UITableViewController {
         
         ref.observe(.childAdded, with: { (snapshot) in
             
-            let messageId = snapshot.key
-            let messagesReference = Database.database().reference().child("messages").child(messageId)
-            
-            messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            let userId = snapshot.key
+            Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
-                if let dictionary = snapshot.value as? [String: Any] {
-                    let message = Message()
-                    message.setValuesForKeys(dictionary)
-                    
-                    if let chatPartnerId = message.chatPartnerId() {
-                        self.messagesDictionary[chatPartnerId] = message
-                        
-                        self.messages = Array(self.messagesDictionary.values)
-                        self.messages.sort {
-                            ($0.timestamp?.intValue)! > ($1.timestamp?.intValue)!
-                        }
-                    }
-                    
-                    self.timer?.invalidate()
-                    print("just cancel timer")
-                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-                    print("schedule timer")
-                    
-                }
+                let messageId = snapshot.key
+                
+                self.fetchMessageWithMesssageId(messageId: messageId)
+                
             }, withCancel: nil)
             
         }, withCancel: nil)
     }
     
+    private func fetchMessageWithMesssageId(messageId: String) {
+        let messagesReference = Database.database().reference().child("messages").child(messageId)
+        
+        messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: Any] {
+                let message = Message()
+                message.setValuesForKeys(dictionary)
+                
+                if let chatPartnerId = message.chatPartnerId() {
+                    self.messagesDictionary[chatPartnerId] = message
+                }
+                
+                self.attemptReloadOfTable()
+            }
+        }, withCancel: nil)
+    }
+    
+    private func attemptReloadOfTable() {
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+    }
+    
     var timer: Timer?
     
     func handleReloadTable() {
+        self.messages = Array(self.messagesDictionary.values)
+        self.messages.sort {
+            ($0.timestamp?.intValue)! > ($1.timestamp?.intValue)!
+        }
         // this will crash cos of background thread so let's put it to main thread
         DispatchQueue.main.async {
-            print("reload table")
             self.tableView.reloadData()
         }
     }
     
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
-
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
@@ -126,7 +135,7 @@ class MessagesController: UITableViewController {
     }
     
     func checkIfUserIsLoggedIn() {
-
+        
         // User is not logged in
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
@@ -198,8 +207,8 @@ class MessagesController: UITableViewController {
         
         self.navigationItem.titleView = titleView
         
-//        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
-
+        //        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
+        
     }
     
     func showChatControllerForUser(user: User) {
