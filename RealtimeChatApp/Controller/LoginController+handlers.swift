@@ -74,9 +74,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         
         picker.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
         picker.allowsEditing = true
-        
-        
-        
         present(picker, animated: true, completion: nil)
     }
     
