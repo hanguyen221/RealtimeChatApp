@@ -12,8 +12,19 @@ import UIKit
 import Firebase
 
 class LoginController: UIViewController, UITextFieldDelegate {
-
+    
     var messagesController: MessagesController?
+    
+    lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+//        sv.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        sv.backgroundColor = .red
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        sv.alwaysBounceVertical = true
+        sv.keyboardDismissMode = .onDrag
+        return sv
+    }()
     
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -151,11 +162,14 @@ class LoginController: UIViewController, UITextFieldDelegate {
 
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
         
+        view.addSubview(scrollView)
         
-        view.addSubview(inputsContainerView)
-        view.addSubview(loginRegisterButton)
-        view.addSubview(profileImageView)
-        view.addSubview(loginRegisterSegmentedControl)
+        setupScrollView()
+        
+        scrollView.addSubview(inputsContainerView)
+        scrollView.addSubview(loginRegisterButton)
+        scrollView.addSubview(profileImageView)
+        scrollView.addSubview(loginRegisterSegmentedControl)
         
         
         setupLoginRegisterButton()
@@ -163,8 +177,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
         
-        let dismissKeyboardRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(dismissKeyboardRecognizer)
+//        let dismissKeyboardRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        view.addGestureRecognizer(dismissKeyboardRecognizer)
     }
     
     func dismissKeyboard() {
@@ -176,15 +190,22 @@ class LoginController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func setupScrollView() {
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+    }
+    
     func setupLoginRegisterSegmentedControl() {
-        loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         loginRegisterSegmentedControl.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -12).isActive = true
         loginRegisterSegmentedControl.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
     
     func setupProfileImageView() {
-        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profileImageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -203,9 +224,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
         inputsContainerView.addSubview(emailseparatorView)
         inputsContainerView.addSubview(passwordTextField)
         
-        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+        inputsContainerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        inputsContainerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+        inputsContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -24).isActive = true
         inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputsContainerViewHeightAnchor?.isActive = true
         
@@ -240,7 +261,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     
     func setupLoginRegisterButton() {
-        loginRegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginRegisterButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
